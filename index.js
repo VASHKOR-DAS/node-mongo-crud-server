@@ -37,8 +37,18 @@ async function run() {
         app.put('/users/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
-            const updatedUser = req.body;
-            console.log(updatedUser);
+            const user = req.body;
+            // console.log(updatedUser);
+            const option = {upsert: true}; // jodi db te jei data khujtesi seta thake tahole update, n thakle insert koro, update + insert = upsert
+            const updatedUser = {
+                $set: {
+                    name: user.name,
+                    address: user.address,
+                    email: user.email
+                }
+            }
+            const result = await userCollection.updateOne(filter, updatedUser, option);
+            res.send(result);
         })
         //--------------------------------------
 
