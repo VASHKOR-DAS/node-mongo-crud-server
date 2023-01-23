@@ -26,6 +26,22 @@ async function run() {
         })
         //---------------------------------------
 
+        //-------- update user ------------------
+        app.get('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const user = await userCollection.findOne(query);
+            res.send(user);
+        })
+
+        app.put('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const updatedUser = req.body;
+            console.log(updatedUser);
+        })
+        //--------------------------------------
+
         //---------- send to db -----------------
         app.post('/users', async (req, res) => {
             const user = req.body;
