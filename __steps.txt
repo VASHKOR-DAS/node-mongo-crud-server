@@ -3,6 +3,8 @@ npm i express cors mongodb
 
 create a file - index.js
 
+add gitignore file
+
 ------------
 simple setup
 ------------
