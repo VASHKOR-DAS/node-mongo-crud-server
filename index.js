@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -31,11 +31,25 @@ async function run() {
             const user = req.body;
             console.log(user);
 
-            // db te data send
+            // db a data send
             const result = await userCollection.insertOne(user)
             res.send(result);
         })
         //---------------------------------------
+
+        //-------- DELETE a specific User -------
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            // console.log('trying to delete', id);
+
+            // delete from db
+
+            // db er _id er vitor ObjectId wala 1ta kichu ase setar theke amader clicked id ta delete korte hobe
+            const query = { _id: ObjectId(id) }
+            const result = await userCollection.deleteOne(query);
+            console.log(result);
+            res.send(result);
+        })
     }
     finally {
 
